@@ -1,0 +1,98 @@
+// BlockCraft: Cube Master — mainTemplate.gradle additions
+//
+// Place this content as Assets/Plugins/Android/mainTemplate.gradle (or
+// modify the auto-generated Unity template) so the produced .aar / .apk
+// links against Firebase, Play Services, and the Billing SDK.
+
+apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'   // Firebase
+apply plugin: 'kotlin-android'
+
+android {
+    compileSdkVersion 34
+    buildToolsVersion "34.0.0"
+
+    defaultConfig {
+        minSdkVersion 23
+        targetSdkVersion 34
+
+        // Multi-ABI split (smaller per-device downloads).
+        ndk {
+            abiFilters 'arm64-v8a', 'armeabi-v7a'
+        }
+
+        // AdMob test ids for development. Replace before publishing.
+        manifestPlaceholders = [
+            admob_app_id: "ca-app-pub-3940256099942544~3347511713"
+        ]
+
+        // R8 / ProGuard
+        // minifyEnabled true     // enable in release
+        // shrinkResources true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.debug   // replace with release signing
+            // minifyEnabled true
+            // proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'),
+            //               'proguard-user.txt'
+        }
+        debug {
+            // default
+        }
+    }
+
+    packagingOptions {
+        // Strip unused architectures
+        jniLibs {
+            useLegacyPackaging = false
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // Firebase BoM (auto-aligns versions).
+    implementation platform('com.google.firebase:firebase-bom:32.7.0')
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
+    implementation 'com.google.firebase:firebase-auth-ktx'
+    implementation 'com.google.firebase:firebase-firestore-ktx'
+    implementation 'com.google.firebase:firebase-messaging-ktx'
+    implementation 'com.google.firebase:firebase-config-ktx'
+
+    // Play Services Ads (AdMob) + UMP.
+    implementation 'com.google.android.gms:play-services-ads:23.3.0'
+    implementation 'com.google.android.ump:user-messaging-platform:2.2.0'
+
+    // Play Games Services.
+    implementation 'com.google.android.gms:play-services-games:23.1.0'
+    implementation 'com.google.android.gms:play-services-auth:20.7.0'
+
+    // Play Billing v7.
+    implementation 'com.android.billingclient:billing-ktx:7.0.0'
+
+    // Kotlin stdlib (matches firebase-ktx).
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.9.24'
+
+    // AndroidX core for theme attrs.
+    implementation 'androidx.core:core-ktx:1.13.1'
+}
+
+// Google Play automatically targets Java 8+ features; this enables them.
+compileOptions {
+    coreLibraryDesugaringEnabled true
+}
+dependencies {
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.4'
+}

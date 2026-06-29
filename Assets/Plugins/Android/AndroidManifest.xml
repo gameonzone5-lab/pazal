@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  BlockCraft: Cube Master — AndroidManifest.xml
+  Drop into Assets/Plugins/Android/AndroidManifest.xml in your Unity project.
+  Add your own signing config, package id, and AdmobAppId before shipping.
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
+          package="com.blockcraft.cubemaster"
+          android:versionCode="1"
+          android:versionName="1.0.0">
+
+    <!-- Vibration for haptic feedback -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <!-- Internet for ads, cloud save, leaderboards, analytics, IAP verification -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- Google Play billing v7 -->
+    <uses-permission android:name="com.android.vending.BILLING" />
+
+    <!-- Wake lock so background music + cloud sync can finish -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <!-- Optional: post notifications for FCM (Cloud Messaging) -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <!--
+      Required by Google Play Games Services for sign-in.
+      Use your own client_id in OAuth client setup; here we reference
+      the manifest placeholder that Unity will inject from
+      Plugins/Android/google-play-services.properties.
+    -->
+    <meta-data android:name="com.google.android.gms.games.APP_ID"
+               android:value="@string/app_id" />
+
+    <!-- AdMob application id. Replace with your real id before publishing. -->
+    <meta-data
+        android:name="com.google.android.gms.ads.APPLICATION_ID"
+        android:value="ca-app-pub-XXXXXXXXXXXXXXXX~XXXXXXXXXX" />
+
+    <application
+        android:label="@string/app_name"
+        android:icon="@mipmap/app_icon"
+        android:roundIcon="@mipmap/app_icon_round"
+        android:theme="@style/UnityThemeSelector"
+        android:allowBackup="false"
+        android:fullBackupContent="false"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:networkSecurityConfig="@xml/network_security_config"
+        tools:replace="android:allowBackup">
+
+        <activity
+            android:name="com.unity3d.player.UnityPlayerGameActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale|layoutDirection|density"
+            android:hardwareAccelerated="false"
+            android:theme="@style/UnityThemeSelector">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <!-- Deep link entry for promo / referral codes -->
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="https" android:host="blockcraft.app" />
+            </intent-filter>
+        </activity>
+
+    </application>
+
+</manifest>

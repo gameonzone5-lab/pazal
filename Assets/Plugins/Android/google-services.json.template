@@ -1,0 +1,32 @@
+{
+  "_comment": "Firebase project configuration for BlockCraft: Cube Master.",
+  "_how_to_use": "1) Create a Firebase project at console.firebase.google.com. 2) Add an Android app with package id com.blockcraft.cubemaster. 3) Download google-services.json and drop it into Assets/Plugins/Android/ (replacing this template). 4) In Unity Player Settings > Publishing Settings, enable 'User Proguard File' if you minify.",
+  "project_info": {
+    "project_number": "000000000000",
+    "firebase_url": "https://blockcraft-cubemaster.firebaseio.com",
+    "project_id": "blockcraft-cubemaster",
+    "storage_bucket": "blockcraft-cubemaster.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:000000000000:android:0000000000000000000000",
+        "android_client_info": {
+          "package_name": "com.blockcraft.cubemaster"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "REPLACE_ME_WITH_YOUR_API_KEY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
