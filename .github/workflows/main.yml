@@ -1,18 +1,16 @@
-name: Get Unity Activation File
+name: Build Android APK
 on: [push]
 
 jobs:
-  activation:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Request manual activation file
-        id: getManualLicenseFile
-        uses: game-ci/unity-request-activation-file@v2
+      - name: Build with Unity
+        uses: game-ci/unity-builder@v4
+        env:
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+          UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
         with:
-          unityVersion: 2022.3.20f1
-      - name: Expose as artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: Unity_ALF
-          path: ${{ steps.getManualLicenseFile.outputs.filePath }}
+          targetPlatform: Android
