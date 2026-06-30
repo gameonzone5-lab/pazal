@@ -5,14 +5,14 @@ jobs:
   activation:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Request manual activation file
         id: getManualLicenseFile
-        uses: game-ci/unity-request-activation-file@v3
+        uses: game-ci/unity-request-activation-file@v2
         with:
           unityVersion: 2022.3.20f1
       - name: Expose as artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: Unity_ALF
           path: ${{ steps.getManualLicenseFile.outputs.filePath }}
